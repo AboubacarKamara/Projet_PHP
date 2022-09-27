@@ -1,0 +1,133 @@
+<?php
+
+
+$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$url_components = parse_url($actual_link);
+$p = preg_split("#/#",$url_components["path"]);
+$method = $p[1];
+
+
+# Modify the form depending on the action
+if($method == "edit"){
+    $index =  intval($p[2]);
+    $title =  $this->translate('Modifier le médicament');
+    $this->headTitle($title);
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('edit',["index"=>$index]));
+    $act = $this->translate("Modifier");
+}
+else{
+    $title =  $this->translate('Ajouter un médicament');
+    $this->headTitle($title);
+    $form = $this->form;
+    $form->setAttribute('action', $this->url('add'));
+    $act = $this->translate("Ajouter");
+}
+
+$form->prepare();
+
+?>
+
+<div class="container">
+	<div>
+		<div>
+			<h3>
+				<?php echo $act; ?>
+			</h3>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div>
+                <?= $this->translate($this->formLabel($form->get('photo'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formFile($form->get('photo')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('photo'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('classe'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('classe')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('classe'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('nom'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('nom')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('nom'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('dci'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('dci')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('dci'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('voie'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('voie')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('voie'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('dosage'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('dosage')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('dosage'))); ?>
+                </div>
+			</div>
+
+            <div>
+                <?= $this->translate($this->formLabel($form->get('unite'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formText($form->get('unite')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('unite'))); ?>
+                </div>
+			</div>
+
+			<div style="padding-top: 15px;">
+				<?=
+                $this->formSubmit($form->get('add_medicine')); 
+                ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,61 @@
+<?php
+
+$title =  $this->translate('Se connecter');
+$this->headTitle($title);
+
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('login'));
+$form->prepare();
+
+?>
+
+<div class="container">
+	<div>
+		<div>
+			<h3>
+				<?php echo($this->translate('Se connecter')); ?>
+			</h3>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div>
+                <?= $this->translate($this->formLabel($form->get('email'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formEmail($form->get('email')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('email'))); ?>
+                </div>
+			</div>
+
+			<div>
+                <?= $this->translate($this->formLabel($form->get('mdp'))); ?>
+                <div style="padding-left: 15px;">
+				<div>
+                   <?= $this->formPassword($form->get('mdp')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('mdp'))); ?>
+                </div>
+			</div>
+
+            <span>
+				<?php 
+				$p1 = $this->translate('Pas encore de compte ? ');
+				$p2 = $this->translate('S\'inscrire ici');
+				echo("<p style='padding-top: 5px'>{$p1}<a href='".$this->url('signup')."'>{$p2}</a></p>")
+				?>
+			</span>
+
+			<div>
+				<?= $this->formSubmit($form->get('connexion')); ?>
+			</div>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>

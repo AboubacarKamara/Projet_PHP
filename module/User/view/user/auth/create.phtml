@@ -1,0 +1,109 @@
+<?php
+
+
+$title = $this->translate('S\'inscrire');
+$this->headTitle($title);
+
+$form = $this->form;
+$form->setAttribute('action', $this->url('signup'));
+$form->prepare();
+
+?>
+
+<div class="container">
+
+	<div class="row">
+
+		<div>
+			<h3>
+				<?php echo($this->translate('S\'inscrire'));?>
+			</h3>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div >
+                <?= $this->translate($this->formLabel($form->get('nom'))); ?>
+				<div style="padding-left: 15px;">
+                   <?= $this->formText($form->get('nom')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('nom'))); ?>
+                </div>
+			</div>	
+
+
+            <div >
+                <?= $this->translate($this->formLabel($form->get('prenom'))); ?>
+				<div style="padding-left: 15px;">
+                   <?= $this->formText($form->get('prenom')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('prenom'))); ?>
+                </div>
+			</div>
+
+	
+			<div >
+                <?= $this->translate($this->formLabel($form->get('date'))); ?>
+                <div style="padding-left: 15px;">
+                   <?= $this->formDateSelect($form->get('date')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('date'))); ?>
+                </div>
+			</div>
+
+            <div >
+                <?= $this->translate($this->formLabel($form->get('email'))); ?>
+				<div style="padding-left: 15px;">
+                   <?= $this->formEmail($form->get('email')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('email'))); ?>
+                </div>
+			</div>	
+
+			<div >
+                <?= $this->translate($this->formLabel($form->get('mdp'))); ?>
+				<div style="padding-left: 15px;">
+                   <?= $this->formPassword($form->get('mdp')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('mdp'))); ?>
+                </div>
+			</div>	
+
+			<div >
+                <?= $this->translate($this->formLabel($form->get('confirm_mdp'))); ?>
+				<div style="padding-left: 15px;">
+                   <?= $this->formPassword($form->get('confirm_mdp')); ?>
+				</div>
+                
+                <div>
+                	<?= $this->translate($this->formElementErrors($form->get('confirm_mdp'))); ?>
+                </div>
+			</div>
+
+            <span>
+				<?php 
+				$p1 = $this->translate('Déjà un compte');
+				$p2 = $this->translate('Se connecter');
+				echo"<p style='padding-top: 5px'>{$p1}? <a href='".$this->url('login')."'>{$p2}</a></p>";
+				?>
+			</span>
+
+			<div>
+                <?= $this->formSubmit($form->get('creer_compte')); ?>           
+			</div>	
+
+			<!-- close the form -->
+			<?= $this->form()->closeTag(); ?>
+
+		</div>
+	</div>
+</div>

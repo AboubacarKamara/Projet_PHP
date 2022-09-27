@@ -1,0 +1,55 @@
+<?php
+function console_log($output, $with_script_tags = true) {
+  $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . ');';
+  if ($with_script_tags) {
+      $js_code = '<script>' . $js_code . '</script>';
+  }
+  echo $js_code;
+}
+$user = $this->user;
+?>
+<style>
+
+h1 {
+  color: maroon;
+  margin-left: 40px;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:hover {background-color: #ddd;}
+
+</style>
+
+<h3 class="text-center"><?php echo $this->translate("Médiacaments pour ").$user->__get('nom')." ".$user->__get('prenom'); ?></h3>
+
+  <table>
+  <?php echo "<th>".$this->translate("Photo")."</th><th>".$this->translate("Classe du médicament")."</th><th>".$this->translate("DCI")."</th><th>".$this->translate("Nom ")."</th><th>".$this->translate("Voie d'administration")."</th><th>".$this->translate("Dosage")."</th><th>".$this->translate("Unite")."</th><th>".$this->translate("Supprimer")."</th><th>".$this->translate("Modifier")."</th>"; ?>
+  <?php
+  if($user->__get('medicaments') != null){
+    $test = (array)json_decode($user->__get('medicaments'),false);
+    $i = 0;
+    foreach ($test['liste'] as &$med) {
+      echo "<tr><td><img width='30' height='30' src='".__DIR__."/../img/{$med->photo}' alt='Picture'></td><td>{$med->classe}</td><td>{$med->dci}</td><td>{$med->nom}</td><td>{$med->voie}</td><td>{$med->dosage}</td><td>{$med->unite}</td>";
+      echo '<td><a href="'.$this->url('delete',["index"=>$i]).'"> <img width="30" height="30" src="https://www.pngplay.com/wp-content/uploads/7/Delete-Logo-Transparent-Background.png" alt="'.$this->translate("Supprimer").'" ></a></td>';
+      echo '<td><a href="'.$this->url('edit',["index"=>$i]).'"> <img width="30" height="30" src="https://cdn.iconscout.com/icon/free/png-256/edit-1767789-1502369.png" alt="'.$this->translate("Modifier").'" ></a></td></tr>';
+      $i++;
+    }
+  }
+  ?>
+  </table>
+
+<?php echo('<div class="text-center"><a href="'.$this->url('add').'"><button class="btn btn-sm btn-outline-secondary mr-2">'.$this->translate("Ajouter un médicament").'</button></a></div>')?>
+
+
